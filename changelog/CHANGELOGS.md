@@ -29,3 +29,5 @@ Gamemodes
 Higher or Lower Anime Rating: Two anime titles are shown and the user has to correctly select the one with the higher rating
 Higher or Lower Anime Favorites: Two anime titles are shown and the user has to correctly select the one with a greater favorite count
 Higher or Lower Anime Characters: Two anime characters are shown, as well as their debut series in and the user has to correctly select the one with a greater favorite count
+
+resolves #7, #8, #9, #10
