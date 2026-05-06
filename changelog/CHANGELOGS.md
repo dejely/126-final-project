@@ -31,3 +31,12 @@ Higher or Lower Anime Favorites: Two anime titles are shown and the user has to 
 Higher or Lower Anime Characters: Two anime characters are shown, as well as their debut series in and the user has to correctly select the one with a greater favorite count
 
 resolves #7, #8, #9, #10
+
+## ----- 2026-05-05 ------
+
+### Issue 16
+Taken Directly from MAL's dark mode theme pallette:
+
+Main BG: #121212
+Secondary BGs: #2E51A2, #333333
+Text: #FFFFFF, #ABC4ED
