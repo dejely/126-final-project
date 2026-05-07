@@ -40,3 +40,11 @@ Taken Directly from MAL's dark mode theme pallette:
 Main BG: #121212
 Secondary BGs: #2E51A2, #333333
 Text: #FFFFFF, #ABC4ED
+
+## ---- 2026-05-07 ------
+
+### Issue 15
+Homepage Layout Draft 1 added to Figma and Docs
+
+## Issue 17
+Logo and Branding details added to Docs
