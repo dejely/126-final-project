@@ -44,7 +44,19 @@ Text: #FFFFFF, #ABC4ED
 ## ---- 2026-05-07 ------
 
 ### Issue 15
-Homepage Layout Draft 1 added to Figma and Docs
+Homepage Layout Draft 1 added to Figma and Docsx    
 
 ## Issue 17
 Logo and Branding details added to Docs
+
+Sumarry: #15, #17
+
+## ---- 2026-05-07 ------
+
+### Issue 18
+Initializes Project
+
+## Issue 22
+Initialize repository file structure and add docs
+
+Sumarry: #18, #22
