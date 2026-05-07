@@ -49,10 +49,14 @@ Homepage Layout Draft 1 added to Figma and Docsx
 ## Issue 17
 Logo and Branding details added to Docs
 
-Summarry: #15, #17
+Sumarry: #15, #17
 
 ## ---- 2026-05-07 ------
 
 ### Issue 18
 Initializes Project
 
+## Issue 22
+Initialize repository file structure and add docs
+
+Sumarry: #18, #22
