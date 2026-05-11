@@ -1,8 +1,17 @@
+import Footer from '../components/layout/Footer';
+import Header from '../components/layout/Header';
+import Button from '../components/ui/Button';
+
 function Home() {
   return (
-    <div className="home">
-      <h1>Welcome to the Home Page!</h1>
-      <p>This is the main landing page of our application.</p>
+    <div className="homePage">
+      <Header />
+
+      <Button className='button' disabled={false}>
+        Generic Button Object
+      </Button>
+
+      <Footer />
     </div>
   );
 }  
