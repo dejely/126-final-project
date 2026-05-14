@@ -1,3 +1,11 @@
+:root {
+  --bg-main: #121212;
+  --bg-primary: #2E51A2;
+  --bg-secondary: #333333;
+
+  --text-main: #FFFFFF;
+  --text-muted: #ABC4ED;
+}
 #footer {
     width: 100%;
     height: 15%;
