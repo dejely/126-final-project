@@ -60,3 +60,10 @@ Initializes Project
 Initialize repository file structure and add docs
 
 Sumarry: #18, #22
+
+## ---- 2025-05-15 ------
+Leaderboard Ranking
+- Weekly Highscore Ranking
+- Monthly Highscore Ranking
+- Yearly Highscore Ranking
+- Just Repeat for all the gamemodes
