@@ -4,6 +4,7 @@ import SeriesGame from "../pages/SeriesGame";
 import CharacterGame from "../pages/CharacterGame";
 import Achievements from "../pages/Achievements";
 import Leaderboard from "../pages/Leaderboard";
+import Error from "../pages/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/Leaderboard",
     element: <Leaderboard />
+  },
+  {
+    path: "*",
+    element: <Error/>
   }
 ]);
 
