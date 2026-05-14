@@ -1,5 +1,6 @@
 import React from 'react';
 
+//reusable button component with basic styling and functionality
 interface ButtonProps {
   onClick?: () => void;
   children: React.ReactNode;
