@@ -13,7 +13,72 @@ Make sure you have the following installed:
 
 ---
 
-## 1. Install PostgreSQL
+## Windows
+
+### Initialization
+
+This guide explains how to install and run Supabase locally on Windows for the Aniguess project.
+
+### Requirements
+
+Before starting, install the following:
+
+- Node.js
+- npm
+- Git
+- Docker Desktop
+- Supabase CLI
+
+---
+
+### 1. Install Docker Desktop
+
+Download and install Docker Desktop for Windows.
+
+After installing, open Docker Desktop and make sure it is running.
+
+To check if Docker is working, open PowerShell or Git Bash and run:
+
+```bash
+docker --version
+docker ps
+```
+
+### Supabase CLI
+```shell
+npm install supabase --save-dev
+```
+To check:
+```shell
+npx supabase --help
+```
+
+### Initialize Database
+
+```shell
+npx supabase init
+```
+
+This creates a `supabase/` folder:
+```bash
+supabase/
+└── config.toml
+```
+
+### Start Local Supabase
+```shell
+npx supabase start
+```
+After that Supabase will generate credentials similar to:
+```bash
+API URL: http://127.0.0.1:54321
+DB URL: postgresql://postgres:postgres@127.0.0.1:54322/postgres
+Studio URL: http://127.0.0.1:54323
+anon key: your_local_anon_key
+service_role key: your_local_service_role_key # Do not expose this!
+```
+
+## Linux Distro
 
 ### Arch
 
