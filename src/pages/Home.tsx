@@ -8,12 +8,12 @@ function Home() {
   return (
     <div className="homePage">
       
-      <Image src='../public/home_background.png' alt="Home_Background" className="background" />
+      <Image src='/home_background.png' alt="Home_Background" className="background" />
       <Header />
 
-      <Image src='../public/aniguess_logo.png' alt="Aniguess_Logo" className="logo" />
-      <Image src='../public/help_button.png' alt="Help_Button" className="helpButton" />
-      <Image src='../public/settings_button.png' alt="Settings_Button" className="settingsButton" />
+      <Image src='/aniguess_logo.png' alt="Aniguess_Logo" className="logo" />
+      <Image src='/help_button.png' alt="Help_Button" className="helpButton" />
+      <Image src='/settings_button.png' alt="Settings_Button" className="settingsButton" />
       <Heading className='gamemodeHeading'>
         Gamemodes
       </Heading>
