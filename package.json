@@ -8,8 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "husky",
-    "server": "tsx src/lib/supabase/server.ts"
+    "server": "tsx src/lib/supabase/server.ts",
+    "prepare": "husky || true"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
