@@ -40,6 +40,18 @@
     background-color: #121212;
 }
 
+.leaderboardPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+    width: 100%;
+
+    background-color: #121212;
+}
+
 .button {
     background-color: #ffffff;
     color: #000000;
@@ -61,20 +73,68 @@
     top: 20%;
 }
 
+.lb_logo {
+    width: 20%;
+    height: auto;
+    margin-bottom: 20px;
+    position: absolute;
+    top: 15%;
+}
+
+.thisWeekLBHeading {
+    font-size:larger;
+    position: absolute;
+    top: 25%;
+    left: 20%
+}
+
+.allTimeLBHeading {
+    font-size:larger;
+    position: absolute;
+    top: 25%;
+    right: 20%
+}
+
 .helpButton{
-    height: 50px;
-    width: auto;
     position: fixed;
     top: 20%;
     right: 5%;
 }
 
-.settingsButton {
+.helpButton img{
     height: 50px;
-    width: auto;
+    width: 50px;
+    padding: 0px;
+    border: none;
+    margin-bottom: 0px;
+}
+
+.settingsButton {
     position: fixed;
     top: 20%;
     right: 10%;
+}
+
+.settingsButton img{
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+    border: none;
+    margin-bottom: 0px;
+}
+
+.leaderboardButton {
+    position: fixed;
+    top: 20%;
+    left: 10%;
+}
+
+.leaderboardButton img{
+    height: 50px;
+    width: 50px;
+    padding: 0px;
+    border: none;
+    margin-bottom: 0px;
 }
 
 .background {
@@ -84,4 +144,23 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.allTimeLB{
+    position: absolute;
+    right: 17%;
+    top: 30%;
+    align-items: baseline;
+    justify-content: center;
+}
+
+tr div{
+    background-color: var(--text-main);
+    border-radius: 12%;
+}
+
+tr div h4{
+    margin: 10px;
+    font-family: 'Roboto', sans-serif !important;
+    color:#000000 !important;
 }
