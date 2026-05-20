@@ -1,17 +1,24 @@
 const endpoint = 'https://api.jikan.moe/v4/top/anime';
 
-// top 25 animes
+// top 100 animes
 export async function getTopAnimeChoices() {
-  try {
-    const response = await fetch(endpoint);
+  
+  const allData: any[] = [];
+
+  for (let p = 1; p <= 4; p++) {
+    let url = endpoint + "?page=" + p;
+
+    const response = await fetch(url);
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error on page ${p}: ${response.status}`);
     }
 
     const result = await response.json();
 
-    return result.data.map((item: any) => ({
+    allData.push(...result.data);
+  }
+    return allData.map((item: any) => ({
       id: item.mal_id,
       title: item.title,
       image: item.images.jpg.image_url,
@@ -19,8 +26,4 @@ export async function getTopAnimeChoices() {
       popularity: item.popularity,
       favorites: item.favorites,
     }));
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
 }
