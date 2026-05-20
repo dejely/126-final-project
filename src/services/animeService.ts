@@ -1,39 +1,26 @@
-import { malFetch } from '../lib/malClient'
+const endpoint = 'https://api.jikan.moe/v4/top/anime';
 
-/**
- * Shape of the MyAnimeList ranking response used by the game.
- * Only the fields requested in getTopAnimeChoices are represented here.
- */
-type MalRankingResponse = {
-  data: {
-    node: {
-      id: number
-      title: string
-      main_picture?: {
-        medium?: string
-      }
-      mean?: number
-      popularity?: number
-      num_favorites?: number
-    }
-  }[]
-}
-
-/**
- * Fetches top-ranked anime from the backend MAL proxy and converts the API
- * response into the simplified choice data used by the game UI.
- */
+// top 25 animes
 export async function getTopAnimeChoices() {
-  const result = await malFetch<MalRankingResponse>(
-    '/anime/ranking?ranking_type=all&limit=20&fields=id,title,main_picture,mean,popularity,num_favorites'
-  )
+  try {
+    const response = await fetch(endpoint);
 
-  return result.data.map((item) => ({
-    id: item.node.id,
-    title: item.node.title,
-    image: item.node.main_picture?.medium,
-    rating: item.node.mean,
-    popularity: item.node.popularity,
-    favorites: item.node.num_favorites,
-  }))
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const result = await response.json();
+
+    return result.data.map((item: any) => ({
+      id: item.mal_id,
+      title: item.title,
+      image: item.images.jpg.image_url,
+      rating: item.score,
+      popularity: item.popularity,
+      favorites: item.favorites,
+    }));
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
 }
