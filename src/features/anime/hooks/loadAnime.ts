@@ -1,27 +1,30 @@
-import {getTop100} from "../api/animeApi";
+import { getTop100 } from "../api/animeApi";
 
 let animeData: any[] | null = null;
 let isFetching = false; //to ensure no duplicate fetches because of jikan's rate limit
 
 export async function getData() {
-    if (animeData) {
-        return animeData;
-    }
+  if (animeData) {
+    return animeData;
+  }
 
-    if (isFetching) {
-        while (isFetching) {} //hold until Fetching is done 
-        return animeData;
-    }
+  let fetchPromise: Promise<any[]> | null = null;
 
-    try{
-        isFetching = true;
+  if (isFetching) {
+    return fetchPromise!; // Wait for the in-flight request
+  }
 
+  isFetching = true;
+  fetchPromise = (async () => {
+    try {
         const data = await getTop100();
         animeData = data;
-
         return animeData;
-    } finally {
+  } finally {
         isFetching = false;
-    }
-
-}   
+        fetchPromise = null;
+  }
+})();
+ 
+return fetchPromise;
+}
