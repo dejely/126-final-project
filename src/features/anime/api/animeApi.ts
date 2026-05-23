@@ -2,12 +2,20 @@ import type { AnimeEntry, AnimeData } from "../types";
 
 const endpoint = 'https://api.jikan.moe/v4/top/anime';
 
+// Helper to add delay between requests
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
 // pull top 100 anime
 export async function getTop100() {
   
   const allData: AnimeEntry[] = [];
 
   for (let p = 1; p <= 4; p++) {
+    if (p > 1) {
+      // Add 1 second delay between requests to respect rate limits
+      await delay(1000);
+    }
+
     let url = endpoint + "?page=" + p;
 
     const response = await fetch(url);
