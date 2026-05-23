@@ -7,7 +7,25 @@ function AnimeCard(){
     const [anime, setAnime] = useState<AnimeData | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
+useEffect(() => {
+      let cancelled = false;               // flag to guard state updates
+      const fetchRandomAnime = async () => {
+          try {
+              const randomAnime = await getRandomAnime();
+              if (cancelled) return;
+              if (!randomAnime) {
+                  setError("No anime data received");
+                  return;
+              }
+              setAnime(randomAnime);
+          } catch (err) {
+              if (cancelled) return;
+              setError(err instanceof Error ? err.message : "Unknown error");
+          }
+      };
+      fetchRandomAnime();
+      return () => { cancelled = true; };  // cleanup
+  }, []);
         const fetchRandomAnime = async () => {
             try {
                 console.log("Fetching random anime...");
