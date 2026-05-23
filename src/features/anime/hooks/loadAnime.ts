@@ -1,6 +1,7 @@
 import { getTop100 } from "../api/animeApi";
+import type { AnimeData } from "../types.ts";
 
-let animeData: any[] | null = null;
+let animeData: AnimeData[] | null = null;
 let isFetching = false; //to ensure no duplicate fetches because of jikan's rate limit
 
 export async function getData() {
@@ -8,7 +9,7 @@ export async function getData() {
     return animeData;
   }
 
-  let fetchPromise: Promise<any[]> | null = null;
+  let fetchPromise: Promise<AnimeData[]> | null = null;
 
   if (isFetching) {
     return fetchPromise!; // Wait for the in-flight request

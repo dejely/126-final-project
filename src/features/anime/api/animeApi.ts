@@ -1,22 +1,6 @@
+import type { AnimeEntry, AnimeData } from "../types";
+
 const endpoint = 'https://api.jikan.moe/v4/top/anime';
-
-interface AnimeEntry {
-  mal_id: number;
-  title: string;
-  images: { jpg: { image_url: string}};
-  score: number;
-  popularity: number;
-  favorites: number;
-}
-
-interface AnimeData {
-  id: number;
-  title: string;
-  image: string;
-  rating: number;
-  popularity: number;
-  favorites: number;
-}
 
 // pull top 100 anime
 export async function getTop100() {
