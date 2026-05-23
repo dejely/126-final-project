@@ -1,4 +1,4 @@
-import type { AnimeEntry, AnimeData } from "../types.ts";
+import type { AnimeEntry, AnimeData } from "../types";
 
 const endpoint = 'https://api.jikan.moe/v4/top/anime';
 
