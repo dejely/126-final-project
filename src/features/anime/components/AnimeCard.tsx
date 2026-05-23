@@ -1,46 +1,29 @@
 import { useEffect, useState } from "react";
 import { getRandomAnime } from "../hooks/getRandomAnime.ts";
 import type { AnimeData } from "../types.ts";
-import Heading from "../../../components/layout/Heading.tsx";
 
 function AnimeCard(){
     const [anime, setAnime] = useState<AnimeData | null>(null);
     const [error, setError] = useState<string | null>(null);
 
-useEffect(() => {
-      let cancelled = false;               // flag to guard state updates
-      const fetchRandomAnime = async () => {
-          try {
-              const randomAnime = await getRandomAnime();
-              if (cancelled) return;
-              if (!randomAnime) {
-                  setError("No anime data received");
-                  return;
-              }
-              setAnime(randomAnime);
-          } catch (err) {
-              if (cancelled) return;
-              setError(err instanceof Error ? err.message : "Unknown error");
-          }
-      };
-      fetchRandomAnime();
-      return () => { cancelled = true; };  // cleanup
-  }, []);
+    useEffect(() => {
+        let cancelled = false;
         const fetchRandomAnime = async () => {
             try {
                 const randomAnime = await getRandomAnime();
+                if (cancelled) return;
                 if (!randomAnime) {
                     setError("No anime data received");
                     return;
                 }
                 setAnime(randomAnime);
             } catch (err) {
-                const errorMessage = err instanceof Error ? err.message : "Unknown error";
-                setError(errorMessage);
+                if (cancelled) return;
+                setError(err instanceof Error ? err.message : "Unknown error");
             }
         };
-
         fetchRandomAnime();
+        return () => { cancelled = true; };
     }, []);
 
     if (error) {
@@ -54,8 +37,9 @@ useEffect(() => {
     return (
         <article className="animeCard">
             <div>
-            <img src={anime.image} alt={anime.title} style={{ width: '200px', height: '300px' }} />
-            <Heading>{anime.title}</Heading>
+                <img src={anime.image} alt={anime.title} style={{ width: '200px', height: '300px' }} />
+                <h2>{anime.title}</h2>
+                <p>Rating: {anime.rating}</p>
             </div>
         </article>
     );
