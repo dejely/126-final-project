@@ -10,9 +10,7 @@ function AnimeCard(){
     useEffect(() => {
         const fetchRandomAnime = async () => {
             try {
-                console.log("Fetching random anime...");
                 const randomAnime = await getRandomAnime();
-                console.log("Anime fetched:", randomAnime);
                 if (!randomAnime) {
                     setError("No anime data received");
                     return;
@@ -20,7 +18,6 @@ function AnimeCard(){
                 setAnime(randomAnime);
             } catch (err) {
                 const errorMessage = err instanceof Error ? err.message : "Unknown error";
-                console.error("Error fetching anime:", errorMessage);
                 setError(errorMessage);
             }
         };
