@@ -16,7 +16,7 @@ export async function getTop100() {
       await delay(1000);
     }
 
-    let url = endpoint + "?page=" + p;
+    const url = endpoint + "?page=" + p;
 
     const response = await fetch(url);
 

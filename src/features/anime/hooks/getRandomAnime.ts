@@ -1,4 +1,5 @@
 import {getData} from './loadAnime';
+import type { AnimeData } from '../types';
 
 export async function getRandomAnime(): Promise<AnimeData | null> {
     const data = await getData();

@@ -1,7 +1,9 @@
+import type { AnimeData, AnimeEntry } from '../features/anime/types';
+
 const endpoint = 'https://api.jikan.moe/v4/top/anime';
 
 // top 25 animes
-export async function getTopAnimeChoices() {
+export async function getTopAnimeChoices(): Promise<AnimeData[]> {
   try {
     const response = await fetch(endpoint);
 
@@ -11,7 +13,7 @@ export async function getTopAnimeChoices() {
 
     const result = await response.json();
 
-    return result.data.map((item: any) => ({
+    return result.data.map((item: AnimeEntry) => ({
       id: item.mal_id,
       title: item.title,
       image: item.images.jpg.image_url,
