@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       
       {
         path: "/GameOver",
-        element: <GameOver score={0} />
+        element: <GameOver />
       },
       {
         path: "*",

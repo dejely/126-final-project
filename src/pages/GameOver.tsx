@@ -1,7 +1,10 @@
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
+import { getScore } from "../features/game/hooks/useGame";
 
-function GameOver({ score }: { score: number }) {
+function GameOver() {
+    const score = getScore();
+
     return (
         <div className="game-over">
             <Header />
