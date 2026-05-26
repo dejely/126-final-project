@@ -1,3 +1,5 @@
+import React from "react";
+
 //reusable image component with basic styling and functionality
 interface AnimeCardRProps {
   title: string;
