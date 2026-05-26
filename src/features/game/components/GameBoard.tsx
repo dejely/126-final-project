@@ -6,8 +6,6 @@ import ChoiceButton from "./ChoiceButton.tsx";
 import { setUserChoice, setOtherChoice, getResultMessage } from "../hooks/useGame.ts";
 import Heading from "../../../components/layout/Heading.tsx";
 
-const PLACEHOLDER_IMAGE = "/placeholder.jpg";
-
 function useRandomAnime() {
     const [anime1, setAnime1] = useState<AnimeData | null>(null);
     const [anime2, setAnime2] = useState<AnimeData | null>(null);
@@ -46,19 +44,14 @@ function useRandomAnime() {
 
 function GameBoard(){
     const { anime1, anime2, error, refresh } = useRandomAnime();
-    const [imageError, setImageError] = useState(false);
     const [showRatings, setShowRatings] = useState(false);
 
     const handleChoice = (choice: number, other: number) => {
         setUserChoice(choice);
         setOtherChoice(other);
         setShowRatings(true);
-
-        // Using setTimeout to allow the UI to render the revealed ratings 
-        // before the blocking alert window appears.
         setTimeout(() => {
             alert(getResultMessage());
-            setImageError(false);
             setShowRatings(false);
             refresh();
         }, 10);
@@ -78,7 +71,7 @@ function GameBoard(){
             <ChoiceButton onClick={() => handleChoice(anime1.rating, anime2.rating)} className="choice-button left">
                 <AnimeCardR
                 title={anime1.title}
-                imgsrc={imageError ? PLACEHOLDER_IMAGE : anime1.image}
+                imgsrc={anime1.image}
                 alt={anime1.title}
                 className="anime-card1"
                 rating={showRatings ? anime1.rating : undefined}
@@ -90,7 +83,7 @@ function GameBoard(){
             <ChoiceButton onClick={() => handleChoice(anime2.rating, anime1.rating)} className="choice-button right">
             <AnimeCardR
                 title={anime2.title}
-                imgsrc={imageError ? PLACEHOLDER_IMAGE : anime2.image}
+                imgsrc={anime2.image}
                 alt={anime2.title}
                 className="anime-card2"
                 rating={showRatings ? anime2.rating : undefined}
