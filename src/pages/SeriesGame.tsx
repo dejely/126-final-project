@@ -6,12 +6,18 @@ import ScoreDisplay from '../features/game/components/ScoreDisplay';
 
 function SeriesGame(){
     const [score, setScore] = useState(0);
+    const [streak, setStreak] = useState(0);
 
     return(
         <div className = "SeriesGame">
             <Header/>
             <ScoreDisplay score={score} />
-            <GameBoard score={score} onScoreUpdate={setScore}/>
+            <GameBoard
+                score={score}
+                streak={streak}
+                onScoreUpdate={setScore}
+                onStreakUpdate={setStreak}
+            />
             <Footer/>
         </div>
     );
