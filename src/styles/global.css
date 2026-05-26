@@ -603,7 +603,7 @@
     border-bottom: 0;
 }
 
-.SeriesGame, .PopularityGame {
+.SeriesGame, .PopularityGame, .CharacterGame {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -615,7 +615,7 @@
     box-sizing: border-box;
 }
 
-.animeCard {
+.animeCard, .characterCard {
     display: flex;
     align-items: center;
     justify-content: center;
