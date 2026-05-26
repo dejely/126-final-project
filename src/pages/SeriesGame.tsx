@@ -1,13 +1,13 @@
 import Footer from '../components/layout/Footer';
 import Header from '../components/layout/Header';
-import AnimeCard from '../features/anime/components/AnimeCard';
+import GameBoard from '../features/game/components/GameBoard';
 
 
 function SeriesGame(){
     return(
         <div className = "SeriesGame">
             <Header/>
-            <AnimeCard/>
+            <GameBoard/>
             <Footer/>
         </div>
     );
