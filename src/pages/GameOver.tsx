@@ -12,7 +12,9 @@ import { unlockAchievementsForResult } from "../features/achievements/api/achiev
 function GameOver() {
     const location = useLocation();
     const hasFinalScore = typeof location.state?.score === "number";
+    const hasFinalStreak = typeof location.state?.streak === "number";
     const score = hasFinalScore ? location.state.score : 0;
+    const streak = hasFinalStreak ? location.state.streak : 0;
     const [saveStatus, setSaveStatus] = useState("Ready for another run.");
     const [saveError, setSaveError] = useState<string | null>(null);
     const saveStarted = useRef(false);
@@ -34,7 +36,7 @@ function GameOver() {
                     playerId: player.id,
                     gameMode: DEFAULT_GAME_MODE,
                     score,
-                    streak: score,
+                    streak,
                 };
 
                 await saveGameResult(result);
@@ -47,13 +49,14 @@ function GameOver() {
         };
 
         void saveFinalScore();
-    }, [hasFinalScore, score]);
+    }, [hasFinalScore, score, streak]);
 
     return (
         <div className="game-over">
             <Header />
             <h1>Game Over</h1>
             <p>Your final score is: {score}</p>
+            <p>Your final streak is: {streak}</p>
             <p>{saveStatus}</p>
             {saveError && <p>{saveError}</p>}
             <Footer />

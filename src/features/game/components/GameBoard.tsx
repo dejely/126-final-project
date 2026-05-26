@@ -51,10 +51,12 @@ function useRandomAnime() {
 
 interface GameBoardProps {
     score: number;
+    streak: number;
     onScoreUpdate: (score: number) => void;
+    onStreakUpdate: (streak: number) => void;
 }
 
-function GameBoard({ score, onScoreUpdate }: GameBoardProps){
+function GameBoard({ score, streak, onScoreUpdate, onStreakUpdate }: GameBoardProps){
     const { anime1, anime2, error, refresh } = useRandomAnime();
     const [showRatings, setShowRatings] = useState(false);
     const [showResult, setShowResult] = useState(false);
@@ -68,7 +70,9 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
 
         const correct = isCorrectChoice(choice, other);
         const nextScore = getNextScore(score, choice, other);
+        const nextStreak = correct ? streak + 1 : 0;
         onScoreUpdate(nextScore);
+        onStreakUpdate(nextStreak);
         setIsCorrect(correct);
         setSelectedSide(side);
         setShowResult(true);
@@ -82,7 +86,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
                 refresh();
             } else {
                 // Redirect to the GameOver page on failure
-                navigate("/GameOver", { state: { score: nextScore } });
+                navigate("/GameOver", { state: { score: nextScore, streak } });
             }
         }, 2000);
     };
