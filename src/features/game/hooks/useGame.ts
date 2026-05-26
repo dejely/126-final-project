@@ -1,28 +1,8 @@
-let userChoice  = 0;
-let other = 0;
-let score = 0;
-
-export function setUserChoice(choice: number) {
-    userChoice = choice;
+export function isCorrectChoice(userChoice: number, other: number) {
+    return userChoice > other;
 }
 
-export function getUserChoice() {
-    return userChoice;
-}
-
-export function resetUserChoice() {
-    userChoice = 0;
-}
-
-export function setOtherChoice(choice: number) {
-    other = choice;
-}
-
-export function getOtherChoice() {
-    return other;
-}
-
-export function getResultMessage() {
+export function getResultMessage(userChoice: number, other: number) {
     if (userChoice > other) {
         return "Correct! You chose the higher rated anime.";
     } else if (userChoice < other) {
@@ -32,16 +12,6 @@ export function getResultMessage() {
     }
 }
 
-export function updateScore() {
-    if (userChoice > other) {
-        score++;
-    }
-}
-
-export function getScore() {
-    return score;
-}
-
-export function resetScore() {
-    score = 0;
+export function getNextScore(currentScore: number, userChoice: number, other: number) {
+    return isCorrectChoice(userChoice, other) ? currentScore + 1 : currentScore;
 }

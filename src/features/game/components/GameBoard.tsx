@@ -4,7 +4,7 @@ import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
 import type { AnimeData } from "../../anime/types.ts";
 import AnimeCardR from "../../anime/components/AnimeCardR.tsx";
 import ChoiceButton from "./ChoiceButton.tsx";
-import { setUserChoice, setOtherChoice, updateScore } from "../hooks/useGame.ts";
+import { getNextScore, isCorrectChoice } from "../hooks/useGame.ts";
 import GameResult from "./GameResult.tsx";
 import Heading from "../../../components/layout/Heading.tsx";
 import LoadingState from "../../../components/ui/LoadingState.tsx";
@@ -50,10 +50,11 @@ function useRandomAnime() {
 }
 
 interface GameBoardProps {
-    onScoreUpdate: () => void;
+    score: number;
+    onScoreUpdate: (score: number) => void;
 }
 
-function GameBoard({ onScoreUpdate }: GameBoardProps){
+function GameBoard({ score, onScoreUpdate }: GameBoardProps){
     const { anime1, anime2, error, refresh } = useRandomAnime();
     const [showRatings, setShowRatings] = useState(false);
     const [showResult, setShowResult] = useState(false);
@@ -65,13 +66,10 @@ function GameBoard({ onScoreUpdate }: GameBoardProps){
         // Prevent multiple clicks while showing results
         if (showResult) return;
 
-        setUserChoice(choice);
-        setOtherChoice(other);
-        updateScore();
-        onScoreUpdate();
-        const correct = choice > other;
+        const correct = isCorrectChoice(choice, other);
+        const nextScore = getNextScore(score, choice, other);
+        onScoreUpdate(nextScore);
         setIsCorrect(correct);
-        setIsCorrect(choice >= other);
         setSelectedSide(side);
         setShowResult(true);
         setShowRatings(true);
@@ -84,7 +82,7 @@ function GameBoard({ onScoreUpdate }: GameBoardProps){
                 refresh();
             } else {
                 // Redirect to the GameOver page on failure
-                navigate("/GameOver");
+                navigate("/GameOver", { state: { score: nextScore } });
             }
         }, 2000);
     };
