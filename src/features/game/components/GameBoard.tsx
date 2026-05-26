@@ -3,7 +3,8 @@ import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
 import type { AnimeData } from "../../anime/types.ts";
 import AnimeCardR from "../../anime/components/AnimeCardR.tsx";
 import ChoiceButton from "./ChoiceButton.tsx";
-import { setUserChoice, setOtherChoice, getResultMessage } from "../hooks/useGame.ts";
+import { setUserChoice, setOtherChoice } from "../hooks/useGame.ts";
+import GameResult from "./GameResult.tsx";
 import Heading from "../../../components/layout/Heading.tsx";
 
 function useRandomAnime() {
@@ -45,16 +46,25 @@ function useRandomAnime() {
 function GameBoard(){
     const { anime1, anime2, error, refresh } = useRandomAnime();
     const [showRatings, setShowRatings] = useState(false);
+    const [showResult, setShowResult] = useState(false);
+    const [isCorrect, setIsCorrect] = useState(false);
 
     const handleChoice = (choice: number, other: number) => {
+        // Prevent multiple clicks while showing results
+        if (showResult) return;
+
         setUserChoice(choice);
         setOtherChoice(other);
+        setIsCorrect(choice >= other);
+        setShowResult(true);
         setShowRatings(true);
+
+        // Show the result component for 2 seconds before moving to the next round
         setTimeout(() => {
-            alert(getResultMessage());
+            setShowResult(false);
             setShowRatings(false);
             refresh();
-        }, 10);
+        }, 2000);
     };
         
     if (error) {
@@ -68,6 +78,7 @@ function GameBoard(){
     return (
         <div className="game-board">
             <Heading className="questionHeading">Which is higher rated?</Heading>   
+            {showResult && <GameResult correct={isCorrect} />}
             <ChoiceButton onClick={() => handleChoice(anime1.rating, anime2.rating)} className="choice-button left">
                 <AnimeCardR
                 title={anime1.title}

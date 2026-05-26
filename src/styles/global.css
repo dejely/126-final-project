@@ -537,8 +537,8 @@ tr div h4{
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 600px;
-    height: 700px;
+    width: 320px;
+    height: 480px;
 }
 
 .animeCard div {
@@ -575,26 +575,19 @@ tr div h4{
 }
 
 .anime-card1 {
-    width: 500px;
-    height: 500px;
+    width: 280px;
+    height: 380px;
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
-    position: absolute;
-    left: 20%;
-    top: 20%;
 }
 
 .anime-card2 {
-    width: 200px;
-    height: 300px;
+    width: 280px;
+    height: 380px;
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
-    position: absolute;
-    left: 40%;
-    top: 20%;
-
 }
 
 .questionHeading {
@@ -603,7 +596,34 @@ tr div h4{
     font-weight: 700;
     line-height: 1.3;
     text-align: center;
-    position: absolute;
-    top: 20%;
-    z-index: 0;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.game-result{
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    pointer-events: none;
+    border-radius: 12%;
+    opacity: 0.9;
+    width: min(100%, 360px);
+    height: 96px;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-result p{
+    color: var(--text-main);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+
 }

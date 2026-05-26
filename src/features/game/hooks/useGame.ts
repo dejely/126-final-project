@@ -1,4 +1,3 @@
-
 let userChoice  = 0;
 let other = 0;
 

@@ -8,7 +8,6 @@ function SeriesGame(){
     return(
         <div className = "SeriesGame">
             <Header/>
-            <Heading className="questionHeading">Which is higher rated?</Heading>
             <GameBoard/>
             <Footer/>
         </div>
