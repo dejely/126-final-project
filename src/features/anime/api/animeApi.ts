@@ -10,7 +10,7 @@ export async function getTop100() {
   
   const allData: AnimeEntry[] = [];
 
-  for (let p = 1; p <= 4; p++) {
+  for (let p = 1; p <= 8; p++) {
     if (p > 1) {
       // Add 1 second delay between requests to respect rate limits
       await delay(1000);
@@ -31,7 +31,7 @@ export async function getTop100() {
 
   return allData.map((item): AnimeData => ({ 
     id: item.mal_id,
-    title: item.title,
+    title: item.title_english ?? item.title_japanese ?? item.title_synonyms?.[0] ?? 'Unknown Title',
     image: item.images?.jpg?.image_url ?? '',
     rating: item.score,
     popularity: item.popularity,
