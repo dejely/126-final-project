@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react"; // Consolidated import
 import { useNavigate } from "react-router-dom";
 import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
 import type { AnimeData } from "../../anime/types.ts";
@@ -61,6 +61,15 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
     const [isCorrect, setIsCorrect] = useState(false);
     const navigate = useNavigate();
     const [selectedSide, setSelectedSide] = useState<ChoiceSide | null>(null);
+    // Ref to store the timeout ID
+    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+    // Effect to clear the timeout on component unmount
+    useEffect(() => {
+        return () => {
+            if (timeoutRef.current) clearTimeout(timeoutRef.current);
+        };
+    }, []);
 
     const handleChoice = (choice: number, other: number, side: ChoiceSide) => {
         // Prevent multiple clicks while showing results
@@ -75,7 +84,8 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
         setShowRatings(true);
 
         // Show the result component for 2 seconds before moving to the next round
-        setTimeout(() => {
+        // Store the timeout ID in the ref to allow cleanup on unmount
+        timeoutRef.current = setTimeout(() => {
             if (correct) {
                 setShowResult(false);
                 setShowRatings(false);
@@ -84,8 +94,9 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
                 // Redirect to the GameOver page on failure
                 navigate("/GameOver", { state: { score: nextScore } });
             }
+            timeoutRef.current = null; // Clear the ref after execution
         }, 2000);
-    };
+    }; // Closing brace for handleChoice
         
     if (error) {
         return (
