@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
 import type { AnimeData } from "../../anime/types.ts";
 import AnimeCardR from "../../anime/components/AnimeCardR.tsx";
 import ChoiceButton from "./ChoiceButton.tsx";
-import { setUserChoice, setOtherChoice } from "../hooks/useGame.ts";
+import { getNextScore, isCorrectChoice } from "../hooks/useGame.ts";
 import GameResult from "./GameResult.tsx";
 import Heading from "../../../components/layout/Heading.tsx";
 import LoadingState from "../../../components/ui/LoadingState.tsx";
@@ -48,30 +49,41 @@ function useRandomAnime() {
     return { anime1, anime2, error, refresh };
 }
 
-function GameBoard(){
+interface GameBoardProps {
+    score: number;
+    onScoreUpdate: (score: number) => void;
+}
+
+function GameBoard({ score, onScoreUpdate }: GameBoardProps){
     const { anime1, anime2, error, refresh } = useRandomAnime();
     const [showRatings, setShowRatings] = useState(false);
     const [showResult, setShowResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
+    const navigate = useNavigate();
     const [selectedSide, setSelectedSide] = useState<ChoiceSide | null>(null);
 
     const handleChoice = (choice: number, other: number, side: ChoiceSide) => {
         // Prevent multiple clicks while showing results
         if (showResult) return;
 
-        setUserChoice(choice);
-        setOtherChoice(other);
-        setIsCorrect(choice >= other);
+        const correct = isCorrectChoice(choice, other);
+        const nextScore = getNextScore(score, choice, other);
+        onScoreUpdate(nextScore);
+        setIsCorrect(correct);
         setSelectedSide(side);
         setShowResult(true);
         setShowRatings(true);
 
         // Show the result component for 2 seconds before moving to the next round
         setTimeout(() => {
-            setShowResult(false);
-            setShowRatings(false);
-            setSelectedSide(null);
-            refresh();
+            if (correct) {
+                setShowResult(false);
+                setShowRatings(false);
+                refresh();
+            } else {
+                // Redirect to the GameOver page on failure
+                navigate("/GameOver", { state: { score: nextScore } });
+            }
         }, 2000);
     };
         
