@@ -16,7 +16,7 @@ const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className, 
                 <img 
                     src={imgsrc} 
                     alt={alt}
-                    style={{ width: '300px', height: '400px' }} 
+                    style={{ width: '200px', height: '300px' }} 
                 />
                 <h2>{title}</h2>
                 <p>{rating !== undefined && rating > 0 ? rating : '?'}</p>
