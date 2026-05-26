@@ -20,6 +20,7 @@ interface NavbarProps {
 const defaultLinks: NavbarLink[] = [
   { label: 'Home', to: '/', end: true },
   { label: 'Series', to: '/SeriesGame' },
+  { label: 'Popularity', to: '/PopularityGame' },
   { label: 'Characters', to: '/CharacterGame' },
   { label: 'Achievements', to: '/Achievements' },
   { label: 'Leaderboard', to: '/Leaderboard' },
