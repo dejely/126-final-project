@@ -132,7 +132,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
                 imgsrc={anime1.image}
                 alt={anime1.title}
                 className="anime-card1"
-                rating={showRatings ? anime1.rating : undefined}
+                statsValue={showRatings ? anime1.rating : undefined}
                 />
             </ChoiceButton>
 
@@ -152,7 +152,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
                 imgsrc={anime2.image}
                 alt={anime2.title}
                 className="anime-card2"
-                rating={showRatings ? anime2.rating : undefined}
+                statsValue={showRatings ? anime2.rating : undefined}
             />
             </ChoiceButton>
             </div>
