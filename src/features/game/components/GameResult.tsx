@@ -5,7 +5,7 @@ interface GameResultProps {
 
 function GameResult({ correct }: GameResultProps) {
   return (
-    <div className="game-result" style={{ backgroundColor: correct ? "#77FF94" : "#B3001B" }}>
+    <div className={correct ? "game-result game-result--correct" : "game-result game-result--incorrect"}>
         <p>{correct ? "Correct!" : "Incorrect!"}</p>
     </div>
   );
