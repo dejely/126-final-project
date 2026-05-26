@@ -6,19 +6,20 @@ interface AnimeCardRProps {
   imgsrc: string;
   alt: string;
   className?: string;
+  rating?: number;
 }
 
-const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className }) => {
+const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className, rating }) => {
   return (
     <article className="animeCard">
             <div>
                 <img 
                     src={imgsrc} 
                     alt={alt}
-                    style={{ width: '200px', height: '300px' }} 
+                    style={{ width: '300px', height: '400px' }} 
                 />
                 <h2>{title}</h2>
-                <p>?</p>
+                <p>{rating !== undefined && rating > 0 ? rating : '?'}</p>
             </div>
     </article>
   );

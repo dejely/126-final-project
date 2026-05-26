@@ -1,19 +1,18 @@
 import React from "react";
-import { setUserChoice } from "../hooks/useGame.ts";
 
 interface ButtonProps {
   children: React.ReactNode;
   className?: string;
-  choice?: number;
+  onClick?: () => void;
 }
 
 const ChoiceButton: React.FC<ButtonProps> = ({
-  choice = 0,
+  onClick,
   children,
   className,
 }) => {
   return (
-    <div onClick={() => setUserChoice(choice)} className={className}>
+    <div onClick={onClick} className={className}>
       {children}
     </div>
   );
