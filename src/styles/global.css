@@ -18,6 +18,7 @@
     background-color: #2e51a2;
     position: fixed;
     bottom: 0;
+    z-index: 1;
 }
 
 #header {
@@ -26,6 +27,7 @@
     background-color: #2e51a2;
     position: fixed;
     top: 0;
+    z-index: 1;
 }
 
 .homePage {
@@ -535,6 +537,8 @@ tr div h4{
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 320px;
+    height: 480px;
 }
 
 .animeCard div {
@@ -550,4 +554,76 @@ tr div h4{
     background-color: rgba(255, 255, 255, 0.08);
     color: var(--text-main);
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+    transition: all 0.3s ease;
+}
+
+.animeCard:hover div {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 20px rgba(46, 81, 162, 0.5);
+}
+
+
+
+.game-board {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.anime-card1 {
+    width: 280px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.anime-card2 {
+    width: 280px;
+    height: 380px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.questionHeading {
+    color: var(--text-main);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.game-result{
+    display: flex;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    pointer-events: none;
+    border-radius: 12%;
+    opacity: 0.9;
+    width: min(100%, 360px);
+    height: 96px;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-result p{
+    color: var(--text-main);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.3;
+    text-align: center;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+
 }

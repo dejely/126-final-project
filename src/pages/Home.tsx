@@ -36,7 +36,7 @@ function Home() {
       </Heading>
 
       <Button className='button' disabled={false}>
-        Series Rating
+          Series Rating
       </Button>
 
       <Button className='button' disabled={false}>

@@ -10,7 +10,7 @@ export async function getTop100() {
   
   const allData: AnimeEntry[] = [];
 
-  for (let p = 1; p <= 4; p++) {
+  for (let p = 1; p <= 8; p++) {
     if (p > 1) {
       // Add 1 second delay between requests to respect rate limits
       await delay(1000);
