@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
 import type { AnimeData } from "../../anime/types.ts";
 import AnimeCardR from "../../anime/components/AnimeCardR.tsx";
@@ -52,6 +53,7 @@ function GameBoard({ onScoreUpdate }: GameBoardProps){
     const [showRatings, setShowRatings] = useState(false);
     const [showResult, setShowResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
+    const navigate = useNavigate();
 
     const handleChoice = (choice: number, other: number) => {
         // Prevent multiple clicks while showing results
@@ -61,15 +63,21 @@ function GameBoard({ onScoreUpdate }: GameBoardProps){
         setOtherChoice(other);
         updateScore();
         onScoreUpdate();
-        setIsCorrect(choice > other);
+        const correct = choice > other;
+        setIsCorrect(correct);
         setShowResult(true);
         setShowRatings(true);
 
         // Show the result component for 2 seconds before moving to the next round
         setTimeout(() => {
-            setShowResult(false);
-            setShowRatings(false);
-            refresh();
+            if (correct) {
+                setShowResult(false);
+                setShowRatings(false);
+                refresh();
+            } else {
+                // Redirect to the GameOver page on failure
+                navigate("/GameOver");
+            }
         }, 2000);
     };
         
