@@ -1,5 +1,6 @@
 let userChoice  = 0;
 let other = 0;
+let score = 0;
 
 export function setUserChoice(choice: number) {
     userChoice = choice;
@@ -31,3 +32,18 @@ export function getResultMessage() {
     }
 }
 
+export function updateScore() {
+    if (userChoice > other) {
+        score++;
+    } else {
+        resetScore();
+    }
+}
+
+export function getScore() {
+    return score;
+}
+
+export function resetScore() {
+    score = 0;
+}

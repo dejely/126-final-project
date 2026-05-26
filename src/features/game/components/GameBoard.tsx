@@ -3,7 +3,7 @@ import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
 import type { AnimeData } from "../../anime/types.ts";
 import AnimeCardR from "../../anime/components/AnimeCardR.tsx";
 import ChoiceButton from "./ChoiceButton.tsx";
-import { setUserChoice, setOtherChoice } from "../hooks/useGame.ts";
+import { setUserChoice, setOtherChoice, updateScore } from "../hooks/useGame.ts";
 import GameResult from "./GameResult.tsx";
 import Heading from "../../../components/layout/Heading.tsx";
 
@@ -43,7 +43,11 @@ function useRandomAnime() {
     return { anime1, anime2, error, refresh };
 }
 
-function GameBoard(){
+interface GameBoardProps {
+    onScoreUpdate: () => void;
+}
+
+function GameBoard({ onScoreUpdate }: GameBoardProps){
     const { anime1, anime2, error, refresh } = useRandomAnime();
     const [showRatings, setShowRatings] = useState(false);
     const [showResult, setShowResult] = useState(false);
@@ -55,7 +59,9 @@ function GameBoard(){
 
         setUserChoice(choice);
         setOtherChoice(other);
-        setIsCorrect(choice >= other);
+        updateScore();
+        onScoreUpdate();
+        setIsCorrect(choice > other);
         setShowResult(true);
         setShowRatings(true);
 
