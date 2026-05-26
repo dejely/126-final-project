@@ -1,13 +1,15 @@
+import React from "react";
+
 //reusable image component with basic styling and functionality
 interface AnimeCardRProps {
   title: string;
   imgsrc: string;
   alt: string;
   className?: string;
-  rating?: number;
+  statsValue?: number;
 }
 
-const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className, rating }) => {
+const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className, statsValue }) => {
 
   return (
     <article className={className ? `animeCard ${className}` : "animeCard"}>
@@ -18,7 +20,7 @@ const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className, 
                     style={{ width: '200px', height: '300px' }} 
                 />
                 <h2>{title}</h2>
-                <p>{rating !== undefined && rating > 0 ? rating : '?'}</p>
+                <p>{statsValue !== undefined && statsValue > 0 ? statsValue.toLocaleString() : '?'}</p>
             </div>
     </article>
   );

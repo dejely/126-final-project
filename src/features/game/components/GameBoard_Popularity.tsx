@@ -56,7 +56,7 @@ interface GameBoardProps {
 
 function GameBoard({ score, onScoreUpdate }: GameBoardProps){
     const { anime1, anime2, error, refresh } = useRandomAnime();
-    const [showRatings, setShowRatings] = useState(false);
+    const [showFavorites, setShowFavorites] = useState(false);
     const [showResult, setShowResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const navigate = useNavigate();
@@ -72,13 +72,13 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
         setIsCorrect(correct);
         setSelectedSide(side);
         setShowResult(true);
-        setShowRatings(true);
+        setShowFavorites(true);
 
         // Show the result component for 2 seconds before moving to the next round
         setTimeout(() => {
             if (correct) {
                 setShowResult(false);
-                setShowRatings(false);
+                setShowFavorites(false);
                 refresh();
             } else {
                 // Redirect to the GameOver page on failure
@@ -107,7 +107,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
                 <LoadingState
                     size="large"
                     message="Loading anime"
-                    helperText="Preparing a fresh rating matchup."
+                    helperText="Preparing a fresh favorite matchup."
                 />
             </div>
         );
@@ -116,13 +116,13 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
     return (
         <div className="game-board">
             <div className="game-board__header">
-                <Heading className="questionHeading">Which is higher rated?</Heading>
-                <p className="game-board__subheading">Pick the series with the stronger MAL score.</p>
+                <Heading className="questionHeading">Which has more favorites?</Heading>
+                <p className="game-board__subheading">Pick the series with the more favorite count.</p>
             </div>
 
             <div className="game-board__arena">
             <ChoiceButton
-                onClick={() => handleChoice(anime1.rating, anime2.rating, "left")}
+                onClick={() => handleChoice(anime1.favorites, anime2.favorites, "left")}
                 disabled={showResult}
                 ariaLabel={`Choose ${anime1.title}`}
                 className={`choice-button left ${selectedSide === "left" ? "choice-button--selected" : ""} ${showResult && selectedSide !== "left" ? "choice-button--dimmed" : ""}`}
@@ -132,7 +132,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
                 imgsrc={anime1.image}
                 alt={anime1.title}
                 className="anime-card1"
-                statsValue={showRatings ? anime1.rating : undefined}
+                statsValue={showFavorites ? anime1.favorites : undefined}
                 />
             </ChoiceButton>
 
@@ -142,7 +142,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
             </div>
 
             <ChoiceButton
-                onClick={() => handleChoice(anime2.rating, anime1.rating, "right")}
+                onClick={() => handleChoice(anime2.favorites, anime1.favorites, "right")}
                 disabled={showResult}
                 ariaLabel={`Choose ${anime2.title}`}
                 className={`choice-button right ${selectedSide === "right" ? "choice-button--selected" : ""} ${showResult && selectedSide !== "right" ? "choice-button--dimmed" : ""}`}
@@ -152,7 +152,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
                 imgsrc={anime2.image}
                 alt={anime2.title}
                 className="anime-card2"
-                statsValue={showRatings ? anime2.rating : undefined}
+                statsValue={showFavorites ? anime2.favorites : undefined}
             />
             </ChoiceButton>
             </div>
