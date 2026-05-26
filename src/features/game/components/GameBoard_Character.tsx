@@ -117,7 +117,7 @@ function GameBoard({ score, onScoreUpdate }: GameBoardProps){
         <div className="game-board">
             <div className="game-board__header">
                 <Heading className="questionHeading">Which has more favorites?</Heading>
-                <p className="game-board__subheading">Pick the series with the more favorite count.</p>
+                <p className="game-board__subheading">Pick the character with the more favorite count.</p>
             </div>
 
             <div className="game-board__arena">
