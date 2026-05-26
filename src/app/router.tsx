@@ -7,6 +7,7 @@ import Achievements from "../pages/Achievements";
 import Leaderboard from "../pages/Leaderboard";
 import Error from "../pages/NotFound";
 import GameOver from "../pages/GameOver";
+import PopularityGame from "../pages/PopularityGame";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/GameOver",
         element: <GameOver />
+      },
+      {
+        path: "/PopularityGame",
+        element: <PopularityGame />
       },
       {
         path: "*",

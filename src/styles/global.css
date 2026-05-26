@@ -532,7 +532,7 @@ tr div h4{
     color:#000000 !important;
 }
 
-.SeriesGame {
+.SeriesGame, .PopularityGame {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -775,7 +775,7 @@ tr div h4{
 }
 
 @media (max-width: 820px) {
-    .SeriesGame {
+    .SeriesGame, .PopularityGame {
         padding: calc(15vh + 18px) 16px calc(15vh + 22px);
     }
 
