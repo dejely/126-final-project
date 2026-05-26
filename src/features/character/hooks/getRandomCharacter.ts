@@ -14,7 +14,7 @@ export async function getTwoUniqueCharacters(): Promise<[CharacterData, Characte
     const character1 = await getRandomCharacter();
     let character2 = await getRandomCharacter();
 
-    while (character1 && character2 && character1.name === character2.name) {
+while (character1 && character2 && character1.id === character2.id) {
         character2 = await getRandomCharacter();
     }
 
