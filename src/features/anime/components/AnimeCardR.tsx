@@ -18,6 +18,7 @@ const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className }
                     style={{ width: '200px', height: '300px' }} 
                 />
                 <h2>{title}</h2>
+                <p>?</p>
             </div>
     </article>
   );

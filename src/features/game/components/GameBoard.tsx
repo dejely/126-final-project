@@ -3,6 +3,7 @@ import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
 import type { AnimeData } from "../../anime/types.ts";
 import AnimeCardR from "../../anime/components/AnimeCardR.tsx";
 import Heading from "../../../components/layout/Heading.tsx";
+import ChoiceButton from "./ChoiceButton.tsx";
 
 const PLACEHOLDER_IMAGE = "/placeholder.jpg";
 
@@ -44,19 +45,23 @@ function GameBoard(){
 
     return (
         <div className="game-board">
-            <AnimeCardR
+            <ChoiceButton choice={1} className="choice-button left">
+                <AnimeCardR
                 title={anime1.title}
                 imgsrc={imageError ? PLACEHOLDER_IMAGE : anime1.image}
                 alt={anime1.title}
-                className="anime-card"
-            />
-            <Heading>Which is higher rated?</Heading>
+                className="anime-card1"/>
+            </ChoiceButton>
+
+            <ChoiceButton choice={2} className="choice-button right">
+            <Heading className="questionHeading">Which is higher rated?</Heading>
             <AnimeCardR
                 title={anime2.title}
                 imgsrc={imageError ? PLACEHOLDER_IMAGE : anime2.image}
                 alt={anime2.title}
-                className="anime-card"
+                className="anime-card2"
             />
+            </ChoiceButton>
         </div>
     );
 }
