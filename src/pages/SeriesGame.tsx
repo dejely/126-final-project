@@ -1,6 +1,5 @@
 import Footer from '../components/layout/Footer';
 import Header from '../components/layout/Header';
-import Heading from '../components/layout/Heading';
 import GameBoard from '../features/game/components/GameBoard';
 
 

@@ -11,7 +11,7 @@ interface AnimeCardRProps {
 
 const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className, rating }) => {
   return (
-    <article className="animeCard">
+    <article className={className ? `animeCard ${className}` : "animeCard"}>
             <div>
                 <img 
                     src={imgsrc} 
