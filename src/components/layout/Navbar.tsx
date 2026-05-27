@@ -67,11 +67,8 @@ const Navbar = ({
 
   const navLinks = useMemo(
     () =>
-      links ?? [
-        ...defaultLinks,
-        ...(!isLoggedIn ? [{ label: 'Login/Signup', to: '/Login' }] : []),
-      ],
-    [isLoggedIn, links],
+      links ?? defaultLinks,
+    [links],
   );
 
   const handleLogout = async () => {
@@ -110,22 +107,24 @@ const Navbar = ({
         ))}
       </div>
 
-      {(actions || isLoggedIn || logoutError) && (
-        <div className={joinClassNames('navbar__actions', actionsClassName)}>
-          {actions}
-          {logoutError && <span className="navbar__error">{logoutError}</span>}
-          {isLoggedIn && (
-            <button
-              type="button"
-              className="navbar__button"
-              onClick={handleLogout}
-              disabled={loggingOut}
-            >
-              {loggingOut ? 'Logging Out...' : 'Logout'}
-            </button>
-          )}
-        </div>
-      )}
+      <div className={joinClassNames('navbar__actions', actionsClassName)}>
+        {actions}
+        {logoutError && <span className="navbar__error">{logoutError}</span>}
+        {isLoggedIn ? (
+          <button
+            type="button"
+            className="navbar__button"
+            onClick={handleLogout}
+            disabled={loggingOut}
+          >
+            {loggingOut ? 'Logging Out...' : 'Logout'}
+          </button>
+        ) : (
+          <NavLink to="/Login" className="navbar__button">
+            Login/Signup
+          </NavLink>
+        )}
+      </div>
     </nav>
   );
 };
