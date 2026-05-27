@@ -6,6 +6,17 @@ import ErrorState from '../components/ui/ErrorState';
 import Heading from '../components/layout/Heading';
 import { useAchievements } from '../features/achievements/api/hooks/useAchievements';
 
+const achievementIcons: Record<string, string> = {
+    SCORE_10: '10',
+    SCORE_20: '20',
+    SCORE_30: '30',
+    STREAK_3: '3X',
+    STREAK_5: '5X',
+    SCORE_100: '100',
+    FIRST_GAME: '1',
+    TOP_PLAYER: '#1',
+};
+
 function Achievements(){
     const { data, loading, error, refetch } = useAchievements();
 
@@ -43,7 +54,7 @@ function Achievements(){
                                 title={achievement.name}
                                 description={achievement.description}
                                 unlocked={achievement.unlocked}
-                                icon={achievement.unlocked ? '✓' : '?'}
+                                icon={achievementIcons[achievement.code] ?? (achievement.unlocked ? '✓' : '?')}
                                 ariaLabel={`${achievement.name}: ${achievement.unlocked ? 'unlocked' : 'locked'}`}
                             />
                         ))}

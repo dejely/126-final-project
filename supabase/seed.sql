@@ -11,6 +11,10 @@ ON CONFLICT DO NOTHING;
 INSERT INTO achievements (code, name, description)
 VALUES
   ('FIRST_GAME', 'First Game', 'Play your first game.'),
+  ('SCORE_10', 'Score 10', 'Reach a score of 10 in any game mode.'),
+  ('SCORE_20', 'Score 20', 'Reach a score of 20 in any game mode.'),
+  ('SCORE_30', 'Score 30', 'Reach a score of 30 in any game mode.'),
+  ('STREAK_3', 'Streak', 'Answer 3 questions correctly in a row.'),
   ('STREAK_5', 'Hot Streak', 'Reach a streak of 5.'),
   ('SCORE_100', 'Century Score', 'Reach a score of 100.'),
   ('TOP_PLAYER', 'Top Player', 'Reach the top of the leaderboard.')
