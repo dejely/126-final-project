@@ -12,6 +12,16 @@
     font-style: bold;
     color: var(--text-main);
 }
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
 #footer {
     width: 100%;
     min-height: 80px;
@@ -528,49 +538,65 @@
     transform: translateX(-50%);
 }
 
-.helpButton{
-    position: fixed;
-    top: 20%;
-    right: 5%;
-    z-index: 10;
-}
-
-.helpButton img{
-    height: 50px;
-    width: 50px;
-    padding: 0px;
-    border: none;
-    margin-bottom: 0px;
-}
-
-.settingsButton {
-    position: fixed;
-    top: 20%;
-    right: 10%;
-    z-index: 10;
-}
-
-.settingsButton img{
-    height: 50px;
-    width: 50px;
-    padding: 0px;
-    border: none;
-    margin-bottom: 0px;
-}
-
+.helpButton,
+.settingsButton,
 .leaderboardButton {
     position: fixed;
     top: 20%;
-    left: 10%;
     z-index: 10;
-}
-
-.leaderboardButton img{
+    display: inline-flex;
     height: 50px;
     width: 50px;
-    padding: 0px;
-    border: none;
-    margin-bottom: 0px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid rgb(171 196 237 / 35%);
+    border-radius: 8px;
+    background-color: rgb(51 51 51 / 88%);
+    cursor: pointer;
+    box-shadow: 0 10px 22px rgb(0 0 0 / 28%);
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.helpButton:hover,
+.settingsButton:hover,
+.leaderboardButton:hover,
+.helpButton:focus-visible,
+.settingsButton:focus-visible,
+.leaderboardButton:focus-visible {
+    border-color: rgb(255 255 255 / 42%);
+    background-color: var(--bg-primary);
+    transform: translateY(-2px);
+}
+
+.helpButton {
+    right: 5%;
+}
+
+.settingsButton {
+    right: 10%;
+}
+
+.leaderboardButton {
+    left: 10%;
+}
+
+.home-action-icon {
+    width: 30px;
+    height: 30px;
+    color: var(--text-main);
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+    filter: drop-shadow(0 2px 6px rgb(0 0 0 / 35%));
+}
+
+.settingsButton .home-action-icon {
+    width: 31px;
+    height: 31px;
+    stroke-width: 1.55;
 }
 
 .gamemodeHeading {
