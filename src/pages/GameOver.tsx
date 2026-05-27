@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
     DEFAULT_GAME_MODE,
     getOrCreateGuestPlayer,
@@ -54,11 +54,26 @@ function GameOver() {
     return (
         <div className="game-over">
             <Header />
-            <h1>Game Over</h1>
-            <p>Your final score is: {score}</p>
-            <p>Your final streak is: {streak}</p>
-            <p>{saveStatus}</p>
-            {saveError && <p>{saveError}</p>}
+            <main className="game-over__panel">
+                <p className="game-over__eyebrow">Run Complete</p>
+                <h1>Game Over</h1>
+                <div className="game-over__stats">
+                    <div>
+                        <span>Final Score</span>
+                        <strong>{score}</strong>
+                    </div>
+                    <div>
+                        <span>Final Streak</span>
+                        <strong>{streak}</strong>
+                    </div>
+                </div>
+                <p className="game-over__status">{saveStatus}</p>
+                {saveError && <p className="game-over__error">{saveError}</p>}
+                <div className="game-over__actions">
+                    <Link to="/SeriesGame" className="button">Play Again</Link>
+                    <Link to="/Leaderboard" className="button button--secondary">Leaderboard</Link>
+                </div>
+            </main>
             <Footer />
         </div>
     );

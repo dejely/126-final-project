@@ -6,8 +6,9 @@ interface ScoreDisplayProps {
 
 const ScoreDisplay: React.FC<ScoreDisplayProps> = ({ score }) => {
     return (
-      <div>
-        <h2>Score: { score }</h2>
+      <div className="score-display" aria-live="polite">
+        <span className="score-display__label">Score</span>
+        <span className="score-display__value">{ score }</span>
       </div>
     );
 }

@@ -11,14 +11,16 @@ const AnimeCardR: React.FC<AnimeCardRProps> = ({ title, imgsrc, alt, className, 
 
   return (
     <article className={className ? `animeCard ${className}` : "animeCard"}>
-            <div>
+            <div className="animeCard__surface">
                 <img 
                     src={imgsrc} 
                     alt={alt}
-                    style={{ width: '200px', height: '300px' }} 
+                    className="animeCard__poster"
                 />
-                <h2>{title}</h2>
-                <p>{rating !== undefined && rating > 0 ? rating : '?'}</p>
+                <div className="animeCard__content">
+                    <h2 className="animeCard__title">{title}</h2>
+                    <p className="animeCard__rating">{rating !== undefined && rating > 0 ? rating : '?'}</p>
+                </div>
             </div>
     </article>
   );
