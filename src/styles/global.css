@@ -910,3 +910,10 @@
         font-size: 1rem;
     }
 }
+
+.navbar-logo {
+    width: 150px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
