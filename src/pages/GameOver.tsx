@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import Footer from "../components/layout/Footer";
 import Header from "../components/layout/Header";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
     DEFAULT_GAME_MODE,
     getOrCreateGuestPlayer,
     saveGameResult,
 } from "../features/user/api/userStatsApi";
 import { unlockAchievementsForResult } from "../features/achievements/api/achievementsApi";
+import Button from "../components/ui/Button";
 
 function GameOver() {
     const location = useLocation();
+    const navigate = useNavigate();
     const hasFinalScore = typeof location.state?.score === "number";
     const hasFinalStreak = typeof location.state?.streak === "number";
     const score = hasFinalScore ? location.state.score : 0;
@@ -59,6 +61,16 @@ function GameOver() {
             <p>Your final streak is: {streak}</p>
             <p>{saveStatus}</p>
             {saveError && <p>{saveError}</p>}
+            
+            <div className="game-over-actions">
+            <Button className='button' onClick={() => navigate(-1)}>
+                Try Again
+            </Button>
+
+            <Button className='button' onClick={() => navigate('/')}>
+                Return to Home
+            </Button>
+            </div>
             <Footer />
         </div>
     );
