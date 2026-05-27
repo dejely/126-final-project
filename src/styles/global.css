@@ -40,8 +40,12 @@
     width: 100%;
 
     background-color: #121212;
+    z-index: -1;
 }
 
+.homePage img{
+    z-index: 0;
+}
 .leaderboardPage {
     display: flex;
     flex-direction: column;
@@ -69,20 +73,23 @@
 .home-stats {
     display: flex;
     position: absolute;
-    top: 32%;
+    bottom: 100px; /* Positioned above the fixed footer */
+    right: 32px;
     gap: 12px;
+    pointer-events: none;
 }
 
 .home-stats-error {
     position: absolute;
-    top: 43%;
-    width: min(80%, 420px);
+    bottom: 185px; /* Positioned above the stats cards */
+    right: 32px;
+    max-width: 280px;
     margin: 0;
     color: var(--text-muted);
     font-size: 0.85rem;
     font-weight: 700;
     line-height: 1.35;
-    text-align: center;
+    text-align: right;
 }
 
 .Achievements {
@@ -146,6 +153,7 @@
     border: 1px solid rgb(171 196 237 / 35%);
     border-radius: 8px;
     background-color: var(--bg-secondary);
+    pointer-events: auto;
 }
 
 .score__label {
@@ -182,6 +190,7 @@
     border: 1px solid rgb(171 196 237 / 35%);
     border-radius: 8px;
     background-color: var(--bg-secondary);
+    pointer-events: auto;
 }
 
 .streak__label {
@@ -492,6 +501,7 @@
     margin-bottom: 20px;
     position: absolute;
     top: 20%;
+    z-index: 0;
 }
 
 .lb_logo {
@@ -500,6 +510,7 @@
     margin-bottom: 20px;
     position: absolute;
     top: 15%;
+    z-index: 0;
 }
 
 .thisWeekLBHeading {
@@ -521,6 +532,7 @@
     position: fixed;
     top: 20%;
     right: 5%;
+    z-index: 10;
 }
 
 .helpButton img{
@@ -535,6 +547,7 @@
     position: fixed;
     top: 20%;
     right: 10%;
+    z-index: 10;
 }
 
 .settingsButton img{
@@ -549,6 +562,7 @@
     position: fixed;
     top: 20%;
     left: 10%;
+    z-index: 10;
 }
 
 .leaderboardButton img{
@@ -559,6 +573,18 @@
     margin-bottom: 0px;
 }
 
+.gamemodeHeading {
+    z-index: 10;
+    position: relative;
+}
+
+.gamemode-list, .game-over-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
 .background {
     position: fixed;
     top: 0;
@@ -566,6 +592,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: -1;
 }
 
 .leaderboard-state,
@@ -883,3 +910,10 @@
         font-size: 1rem;
     }
 }
+
+.navbar-logo {
+    width: 150px;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;

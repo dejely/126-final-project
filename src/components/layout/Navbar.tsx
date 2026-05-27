@@ -31,7 +31,6 @@ function joinClassNames(...classNames: Array<string | undefined | false>) {
 }
 
 const Navbar = ({
-  brand = 'AniGuess',
   links = defaultLinks,
   actions,
   className,
@@ -42,7 +41,7 @@ const Navbar = ({
   return (
     <nav className={joinClassNames('navbar', className)} aria-label="Main navigation">
       <NavLink to="/" className={joinClassNames('navbar__brand', brandClassName)}>
-        {brand}
+        <img src="/aniguess_logo.png" alt="Aniguess_Logo" className="navbar-logo"/>
       </NavLink>
 
       <div className={joinClassNames('navbar__links', linksClassName)}>

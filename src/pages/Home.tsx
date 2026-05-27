@@ -3,13 +3,14 @@ import Header from '../components/layout/Header';
 import Button from '../components/ui/Button';
 import Image from '../components/layout/Image';
 import Heading from '../components/layout/Heading';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Score from '../components/ui/Score';
 import Streak from '../components/ui/Streak';
 import { useUserStats } from '../features/user/hooks/useUserStats';
 
 function Home() {
   const { data: stats, loading: statsLoading, error: statsError } = useUserStats();
+  const navigate = useNavigate();
   const bestScore = statsLoading ? '...' : stats?.bestScore ?? 0;
   const bestStreak = statsLoading ? '...' : stats?.bestStreak ?? 0;
 
@@ -27,38 +28,39 @@ function Home() {
       </div>
       {statsError && <p className="home-stats-error">{statsError}</p>}
 
-      {/* Help and Settings buttons are currently non-functional */}
-      <Button className='helpButton' disabled={false}>
+      <Button className='helpButton' onClick={() => navigate('/Help')}>
         <Image src='/help_button.png' alt="Help_Button" />
       </Button>
 
-      <Button className='settingsButton' disabled={false}>
+      <Button className='settingsButton' onClick={() => navigate('/Settings')}>
         <Image src='/settings_button.png' alt="Settings_Button" className='settingsIcon'/>
       </Button>
       
       {/* Leaderboard button redirects to the leaderboard page */}
-      <Button className='leaderboardButton' disabled={false}>
-        <Link to="/leaderboard">
-          <Image src='/leaderboard_button.png' alt="Leaderboard_Button" />
-        </Link>
+      <Button 
+        className='leaderboardButton' 
+        onClick={() => navigate('/Leaderboard')}
+      >
+        <Image src='/leaderboard_button.png' alt="Leaderboard_Button" />
       </Button>
-
 
       <Heading className='gamemodeHeading'>
         Gamemodes
       </Heading>
 
-      <Button className='button' disabled={false}>
+      <div className="gamemode-list">
+        <Button className='button' onClick={() => navigate('/SeriesGame')}>
           Series Rating
-      </Button>
+        </Button>
 
-      <Button className='button' disabled={false}>
-        Series Faves
-      </Button>
-      
-      <Button className='button' disabled={false}>
-        Character Faves
-      </Button>
+        <Button className='button' onClick={() => navigate('/PopularityGame')}>
+          Series Faves
+        </Button>
+        
+        <Button className='button' onClick={() => navigate('/CharacterGame')}>
+          Character Faves
+        </Button>
+      </div>
 
       <Footer />
     </div>
