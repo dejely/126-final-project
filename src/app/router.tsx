@@ -9,6 +9,8 @@ import Error from "../pages/NotFound";
 import GameOver from "../pages/GameOver";
 import PopularityGame from "../pages/PopularityGame";
 import Help from "../pages/Help";
+import { Register } from "../pages/register";
+import Login from "../pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -48,9 +50,17 @@ const router = createBrowserRouter([
         element: <Help/>
       },
       {
+        path: "/Login",
+        element: <Login />
+      },
+      {
+        path: "/Register",
+        element: <Register />,
+      },
+      {
         path: "*",
         element: <Error/>
-      }
+      },
     ]
   }
 ]);
