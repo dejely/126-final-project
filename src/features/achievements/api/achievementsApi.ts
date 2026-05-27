@@ -3,6 +3,10 @@ import type { AchievementResultInput, PlayerAchievement } from '../types'
 
 const ACHIEVEMENT_CODES = {
   firstGame: 'FIRST_GAME',
+  scoreTen: 'SCORE_10',
+  scoreTwenty: 'SCORE_20',
+  scoreThirty: 'SCORE_30',
+  streakThree: 'STREAK_3',
   streakFive: 'STREAK_5',
   scoreHundred: 'SCORE_100',
   topPlayer: 'TOP_PLAYER',
@@ -51,6 +55,22 @@ export async function unlockAchievementsForResult(
 ): Promise<void> {
   const supabase = getSupabaseClient()
   const achievementCodes = new Set<string>([ACHIEVEMENT_CODES.firstGame])
+
+  if (input.score >= 10) {
+    achievementCodes.add(ACHIEVEMENT_CODES.scoreTen)
+  }
+
+  if (input.score >= 20) {
+    achievementCodes.add(ACHIEVEMENT_CODES.scoreTwenty)
+  }
+
+  if (input.score >= 30) {
+    achievementCodes.add(ACHIEVEMENT_CODES.scoreThirty)
+  }
+
+  if (input.streak >= 3) {
+    achievementCodes.add(ACHIEVEMENT_CODES.streakThree)
+  }
 
   if (input.streak >= 5) {
     achievementCodes.add(ACHIEVEMENT_CODES.streakFive)
