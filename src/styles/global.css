@@ -28,7 +28,7 @@
     background-color: #2e51a2;
     position: fixed;
     bottom: 0;
-    z-index: 1;
+    z-index: 100;
 }
 
 #header {
@@ -37,7 +37,7 @@
     background-color: #2e51a2;
     position: fixed;
     top: 0;
-    z-index: 1;
+    z-index: 100;
 }
 
 .homePage {
@@ -45,12 +45,72 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     height: 100vh;
     width: 100%;
-
     background-color: #121212;
     z-index: -1;
+}
+
+.helpPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    background-color: var(--bg-main);
+    padding: calc(15vh + 48px) 24px 120px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    z-index: -1;
+}
+
+.helpPage img{
+    z-index: 0;
+}
+
+.rules-content {
+    display: flex;
+    width: min(100%, 800px);
+    flex-direction: column;
+    gap: 24px;
+    z-index: 1;
+}
+
+.rules-heading {
+    margin: 0 0 16px;
+    text-align: center;
+}
+
+.rules-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px;
+    border-radius: 12px;
+    background-color: var(--bg-secondary);
+    border: 1px solid rgb(171 196 237 / 15%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.rules-section h2 {
+    margin: 0;
+    color: var(--text-main);
+    font-size: 1.4rem;
+    border-bottom: 2px solid var(--bg-primary);
+    padding-bottom: 8px;
+    width: fit-content;
+}
+
+.rules-section h3 {
+    margin: 12px 0 4px;
+    color: var(--text-main);
+    font-size: 1.1rem;
+}
+
+.rules-section p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.6;
 }
 
 .homePage img{
@@ -1036,4 +1096,13 @@
     margin: 0;
     padding: 0;
     border: none;
+}
+
+.backButton {
+    align-self: center;
+    margin-top: 16px !important;
+    min-width: 200px;
+    background-color: var(--bg-primary) !important;
+    color: var(--text-main) !important;
+    font-weight: 700 !important;
 }

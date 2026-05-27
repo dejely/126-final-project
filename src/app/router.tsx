@@ -8,6 +8,7 @@ import Leaderboard from "../pages/Leaderboard";
 import Error from "../pages/NotFound";
 import GameOver from "../pages/GameOver";
 import PopularityGame from "../pages/PopularityGame";
+import Help from "../pages/Help";
 import { Register } from "../pages/register";
 import Login from "../pages/Login";
 
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: "/PopularityGame",
         element: <PopularityGame />
+      },
+      {
+        path: "/Help",
+        element: <Help/>
       },
       {
         path: "/Login",
