@@ -11,6 +11,7 @@ import PopularityGame from "../pages/PopularityGame";
 import Help from "../pages/Help";
 import { Register } from "../pages/register";
 import Login from "../pages/Login";
+import Settings from "../pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "/Register",
         element: <Register />,
+      },
+      {
+        path: "/Settings",
+        element: <Settings />
       },
       {
         path: "*",
