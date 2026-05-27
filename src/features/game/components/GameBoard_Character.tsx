@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from "react"; // Consolidated import
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {getTwoUniqueAnime } from "../../anime/hooks/getRandomAnime.ts";
-import type { AnimeData } from "../../anime/types.ts";
-import AnimeCardR from "../../anime/components/AnimeCardR.tsx";
+import { getTwoUniqueCharacters } from "../../character/hooks/getRandomCharacter.ts";
+import type { CharacterData } from "../../character/types.ts";
+import CharacterCard from "../../character/components/CharacterCard.tsx";
 import ChoiceButton from "./ChoiceButton.tsx";
 import { getNextScore, isCorrectChoice } from "../hooks/useGame.ts";
 import GameResult from "./GameResult.tsx";
@@ -12,66 +12,55 @@ import ErrorState from "../../../components/ui/ErrorState.tsx";
 
 type ChoiceSide = "left" | "right";
 
-function useRandomAnime() {
-    const [anime1, setAnime1] = useState<AnimeData | null>(null);
-    const [anime2, setAnime2] = useState<AnimeData | null>(null);
+function useRandomCharacter() {
+    const [character1, setCharacter1] = useState<CharacterData | null>(null);
+    const [character2, setCharacter2] = useState<CharacterData | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [trigger, setTrigger] = useState(0);
 
     const refresh = () => {
-        setAnime1(null);
-        setAnime2(null);
+        setCharacter1(null);
+        setCharacter2(null);
         setError(null);
         setTrigger(prev => prev + 1);
     };
 
     useEffect(() => {
         let cancelled = false;
-        const fetchRandomAnime = async () => {
+        const fetchRandomCharacter = async () => {
             try {
-                const animePair = await getTwoUniqueAnime();
+                const characterPair = await getTwoUniqueCharacters();
                 if (cancelled) return;
-                if (!animePair) {
-                    setError("No anime data received");
+                if (!characterPair) {
+                    setError("No character data received");
                     return;
                 }
-                setAnime1(animePair[0]);
-                setAnime2(animePair[1]);
+                setCharacter1(characterPair[0]);
+                setCharacter2(characterPair[1]);
             } catch (err) {
                 if (cancelled) return;
                 setError(err instanceof Error ? err.message : "Unknown error");
             }
         };
-        fetchRandomAnime();
+        fetchRandomCharacter();
         return () => { cancelled = true; };
     }, [trigger]);
 
-    return { anime1, anime2, error, refresh };
+    return { character1, character2, error, refresh };
 }
-
+        
 interface GameBoardProps {
     score: number;
-    streak: number;
     onScoreUpdate: (score: number) => void;
-    onStreakUpdate: (streak: number) => void;
 }
 
-function GameBoard({ score, streak, onScoreUpdate, onStreakUpdate }: GameBoardProps){
-    const { anime1, anime2, error, refresh } = useRandomAnime();
-    const [showRatings, setShowRatings] = useState(false);
+function GameBoard({ score, onScoreUpdate }: GameBoardProps){
+    const { character1, character2, error, refresh } = useRandomCharacter();
+    const [showFavorites, setShowFavorites] = useState(false);
     const [showResult, setShowResult] = useState(false);
     const [isCorrect, setIsCorrect] = useState(false);
     const navigate = useNavigate();
     const [selectedSide, setSelectedSide] = useState<ChoiceSide | null>(null);
-    // Ref to store the timeout ID
-    const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-    // Effect to clear the timeout on component unmount
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) clearTimeout(timeoutRef.current);
-        };
-    }, []);
 
     const handleChoice = (choice: number, other: number, side: ChoiceSide) => {
         // Prevent multiple clicks while showing results
@@ -79,28 +68,24 @@ function GameBoard({ score, streak, onScoreUpdate, onStreakUpdate }: GameBoardPr
 
         const correct = isCorrectChoice(choice, other);
         const nextScore = getNextScore(score, choice, other);
-        const nextStreak = correct ? streak + 1 : 0;
         onScoreUpdate(nextScore);
-        onStreakUpdate(nextStreak);
         setIsCorrect(correct);
         setSelectedSide(side);
         setShowResult(true);
-        setShowRatings(true);
+        setShowFavorites(true);
 
         // Show the result component for 2 seconds before moving to the next round
-        // Store the timeout ID in the ref to allow cleanup on unmount
-        timeoutRef.current = setTimeout(() => {
+        setTimeout(() => {
             if (correct) {
                 setShowResult(false);
-                setShowRatings(false);
+                setShowFavorites(false);
                 refresh();
             } else {
                 // Redirect to the GameOver page on failure
-                navigate("/GameOver", { state: { score: nextScore, streak } });
+                navigate("/GameOver", { state: { score: nextScore } });
             }
-            timeoutRef.current = null; // Clear the ref after execution
         }, 2000);
-    }; // Closing brace for handleChoice
+    };
         
     if (error) {
         return (
@@ -116,13 +101,13 @@ function GameBoard({ score, streak, onScoreUpdate, onStreakUpdate }: GameBoardPr
         );
     }
 
-    if (!anime1 || !anime2) {
+    if (!character1 || !character2) {
         return (
             <div className="game-board game-board--status">
                 <LoadingState
                     size="large"
-                    message="Loading anime"
-                    helperText="Preparing a fresh rating matchup."
+                    message="Loading characters"
+                    helperText="Preparing a fresh favorite matchup."
                 />
             </div>
         );
@@ -131,23 +116,23 @@ function GameBoard({ score, streak, onScoreUpdate, onStreakUpdate }: GameBoardPr
     return (
         <div className="game-board">
             <div className="game-board__header">
-                <Heading className="questionHeading">Which is higher rated?</Heading>
-                <p className="game-board__subheading">Pick the series with the stronger MAL score.</p>
+                <Heading className="questionHeading">Which has more favorites?</Heading>
+                <p className="game-board__subheading">Pick the character with the more favorite count.</p>
             </div>
 
             <div className="game-board__arena">
             <ChoiceButton
-                onClick={() => handleChoice(anime1.rating, anime2.rating, "left")}
+                onClick={() => handleChoice(character1.favorites, character2.favorites, "left")}
                 disabled={showResult}
-                ariaLabel={`Choose ${anime1.title}`}
+                ariaLabel={`Choose ${character1.name}`}
                 className={`choice-button left ${selectedSide === "left" ? "choice-button--selected" : ""} ${showResult && selectedSide !== "left" ? "choice-button--dimmed" : ""}`}
             >
-                <AnimeCardR
-                title={anime1.title}
-                imgsrc={anime1.image}
-                alt={anime1.title}
-                className="anime-card1"
-                statsValue={showRatings ? anime1.rating : undefined}
+                <CharacterCard
+                name={character1.name}
+                imgsrc={character1.image}
+                alt={character1.name}
+                className="character-card1"
+                statsValue={showFavorites ? character1.favorites : undefined}
                 />
             </ChoiceButton>
 
@@ -157,17 +142,17 @@ function GameBoard({ score, streak, onScoreUpdate, onStreakUpdate }: GameBoardPr
             </div>
 
             <ChoiceButton
-                onClick={() => handleChoice(anime2.rating, anime1.rating, "right")}
+                onClick={() => handleChoice(character2.favorites, character1.favorites, "right")}
                 disabled={showResult}
-                ariaLabel={`Choose ${anime2.title}`}
+                ariaLabel={`Choose ${character2.name}`}
                 className={`choice-button right ${selectedSide === "right" ? "choice-button--selected" : ""} ${showResult && selectedSide !== "right" ? "choice-button--dimmed" : ""}`}
             >
-            <AnimeCardR
-                title={anime2.title}
-                imgsrc={anime2.image}
-                alt={anime2.title}
-                className="anime-card2"
-                statsValue={showRatings ? anime2.rating : undefined}
+            <CharacterCard
+                name={character2.name}
+                imgsrc={character2.image}
+                alt={character2.name}
+                className="character-card2"
+                statsValue={showFavorites ? character2.favorites : undefined}
             />
             </ChoiceButton>
             </div>

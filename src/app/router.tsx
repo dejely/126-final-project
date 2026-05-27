@@ -6,6 +6,11 @@ import CharacterGame from "../pages/CharacterGame";
 import Achievements from "../pages/Achievements";
 import Leaderboard from "../pages/Leaderboard";
 import Error from "../pages/NotFound";
+import GameOver from "../pages/GameOver";
+import PopularityGame from "../pages/PopularityGame";
+import Help from "../pages/Help";
+import { Register } from "../pages/register";
+import Login from "../pages/Login";
 
 const router = createBrowserRouter([
   {
@@ -31,10 +36,31 @@ const router = createBrowserRouter([
         path: "/Leaderboard",
         element: <Leaderboard />
       },
+      
+      {
+        path: "/GameOver",
+        element: <GameOver />
+      },
+      {
+        path: "/PopularityGame",
+        element: <PopularityGame />
+      },
+      {
+        path: "/Help",
+        element: <Help/>
+      },
+      {
+        path: "/Login",
+        element: <Login />
+      },
+      {
+        path: "/Register",
+        element: <Register />,
+      },
       {
         path: "*",
         element: <Error/>
-      }
+      },
     ]
   }
 ]);

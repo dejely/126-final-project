@@ -1,17 +1,20 @@
 import React from 'react';
 
 interface TIProps {
-    name?: string;
-    score?: number;
+    rank: number;
+    name: string;
+    score: number;
+    streak: number;
     className?: string;
 }
 
-const LeaderboardItem: React.FC<TIProps> = ({name, score, className }) => {
+const LeaderboardItem: React.FC<TIProps> = ({ rank, name, score, streak, className }) => {
   return (
     <tr className={className}>
-        <div>
-            <h4 id='LBText'>{name} : {score}</h4>
-        </div>
+        <td>#{rank}</td>
+        <td>{name}</td>
+        <td>{score}</td>
+        <td>{streak}</td>
     </tr>
   );
 }
