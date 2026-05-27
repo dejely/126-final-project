@@ -426,6 +426,40 @@
     gap: 8px;
 }
 
+.navbar__button {
+    display: inline-flex;
+    min-height: 40px;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: 1px solid rgb(255 255 255 / 18%);
+    border-radius: 8px;
+    background-color: rgb(255 255 255 / 10%);
+    color: var(--text-main);
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.navbar__button:hover,
+.navbar__button:focus-visible {
+    background-color: rgb(255 255 255 / 18%);
+}
+
+.navbar__button:disabled {
+    cursor: default;
+    opacity: 0.68;
+}
+
+.navbar__error {
+    max-width: 220px;
+    color: #ffc3cb;
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
 @media (max-width: 720px) {
     .navbar {
         flex-wrap: wrap;

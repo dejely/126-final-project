@@ -1,5 +1,7 @@
-import type { ReactNode } from 'react';
-import { NavLink } from 'react-router-dom';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { getSupabaseClient } from '../../lib/supabase/supabaseClient';
+import { logout } from '../../features/auth/api/authApi';
 
 interface NavbarLink {
   label: ReactNode;
@@ -24,7 +26,6 @@ const defaultLinks: NavbarLink[] = [
   { label: 'Characters', to: '/CharacterGame' },
   { label: 'Achievements', to: '/Achievements' },
   { label: 'Leaderboard', to: '/Leaderboard' },
-  { label: 'Login/Signup', to: '/Login'},
 ];
 
 function joinClassNames(...classNames: Array<string | undefined | false>) {
@@ -32,13 +33,62 @@ function joinClassNames(...classNames: Array<string | undefined | false>) {
 }
 
 const Navbar = ({
-  links = defaultLinks,
+  links,
   actions,
   className,
   brandClassName,
   linksClassName,
   actionsClassName,
 }: NavbarProps) => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+  const [logoutError, setLogoutError] = useState('');
+
+  useEffect(() => {
+    let isMounted = true;
+    const supabase = getSupabaseClient();
+
+    supabase.auth.getSession().then(({ data }) => {
+      if (isMounted) {
+        setIsLoggedIn(Boolean(data.session));
+      }
+    });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(Boolean(session));
+    });
+
+    return () => {
+      isMounted = false;
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  const navLinks = useMemo(
+    () =>
+      links ?? [
+        ...defaultLinks,
+        ...(!isLoggedIn ? [{ label: 'Login/Signup', to: '/Login' }] : []),
+      ],
+    [isLoggedIn, links],
+  );
+
+  const handleLogout = async () => {
+    setLogoutError('');
+    setLoggingOut(true);
+
+    try {
+      await logout();
+      setIsLoggedIn(false);
+      navigate('/Login');
+    } catch (err) {
+      setLogoutError(err instanceof Error ? err.message : 'Logout failed.');
+    } finally {
+      setLoggingOut(false);
+    }
+  };
+
   return (
     <nav className={joinClassNames('navbar', className)} aria-label="Main navigation">
       <NavLink to="/" className={joinClassNames('navbar__brand', brandClassName)}>
@@ -46,7 +96,7 @@ const Navbar = ({
       </NavLink>
 
       <div className={joinClassNames('navbar__links', linksClassName)}>
-        {links.map((link) => (
+        {navLinks.map((link) => (
           <NavLink
             key={link.to}
             to={link.to}
@@ -60,9 +110,20 @@ const Navbar = ({
         ))}
       </div>
 
-      {actions && (
+      {(actions || isLoggedIn || logoutError) && (
         <div className={joinClassNames('navbar__actions', actionsClassName)}>
           {actions}
+          {logoutError && <span className="navbar__error">{logoutError}</span>}
+          {isLoggedIn && (
+            <button
+              type="button"
+              className="navbar__button"
+              onClick={handleLogout}
+              disabled={loggingOut}
+            >
+              {loggingOut ? 'Logging Out...' : 'Logout'}
+            </button>
+          )}
         </div>
       )}
     </nav>
