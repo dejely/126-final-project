@@ -24,6 +24,7 @@ const defaultLinks: NavbarLink[] = [
   { label: 'Characters', to: '/CharacterGame' },
   { label: 'Achievements', to: '/Achievements' },
   { label: 'Leaderboard', to: '/Leaderboard' },
+  { label: 'Login/Signup', to: '/Login'},
 ];
 
 function joinClassNames(...classNames: Array<string | undefined | false>) {

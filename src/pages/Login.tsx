@@ -65,7 +65,7 @@ function Login() {
         </form>
 
         <p className="auth-switch">
-          Need an account? <Link to="/Register">Register</Link>
+          Need an account? <Link to="/Register">Sign Up</Link>
         </p>
       </main>
       <Footer />
