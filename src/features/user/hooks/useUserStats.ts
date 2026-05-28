@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
   DEFAULT_GAME_MODE,
+  createEmptyUserStats,
   fetchUserStats,
-  getOrCreateGuestPlayer,
+  getGuestPlayer,
 } from '../api/userStatsApi'
 import type { UserStats } from '../types'
 
@@ -12,7 +13,12 @@ export function useUserStats(gameMode = DEFAULT_GAME_MODE) {
   const [error, setError] = useState<string | null>(null)
 
   const loadStats = useCallback(async () => {
-    const player = await getOrCreateGuestPlayer()
+    const player = await getGuestPlayer()
+
+    if (!player) {
+      return createEmptyUserStats(gameMode)
+    }
+
     return fetchUserStats(player.id, gameMode)
   }, [gameMode])
 

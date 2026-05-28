@@ -12,7 +12,7 @@ const ACHIEVEMENT_CODES = {
   topPlayer: 'TOP_PLAYER',
 } as const
 
-export async function fetchAchievements(playerId: string): Promise<PlayerAchievement[]> {
+export async function fetchAchievements(playerId?: string | null): Promise<PlayerAchievement[]> {
   const supabase = getSupabaseClient()
   const { data: achievements, error: achievementsError } = await supabase
     .from('achievements')
@@ -21,6 +21,17 @@ export async function fetchAchievements(playerId: string): Promise<PlayerAchieve
 
   if (achievementsError) {
     throw achievementsError
+  }
+
+  if (!playerId) {
+    return (achievements ?? []).map((achievement) => ({
+      id: achievement.id,
+      code: achievement.code,
+      name: achievement.name,
+      description: achievement.description,
+      unlocked: false,
+      unlockedAt: null,
+    }))
   }
 
   const { data: unlockedRows, error: unlockedError } = await supabase

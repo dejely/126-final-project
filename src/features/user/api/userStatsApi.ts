@@ -4,17 +4,24 @@ import type { Player, UserStats } from '../types'
 export const DEFAULT_GAME_MODE = 'anime_rating'
 export const GUEST_USERNAME = 'guest_player'
 
-export async function getOrCreateGuestPlayer(): Promise<Player> {
+export async function getGuestPlayer(): Promise<Player | null> {
   const supabase = getSupabaseClient()
-  const { data: existingPlayer, error: selectError } = await supabase
+  const { data, error } = await supabase
     .from('players')
     .select('*')
     .eq('username', GUEST_USERNAME)
     .maybeSingle()
 
-  if (selectError) {
-    throw selectError
+  if (error) {
+    throw error
   }
+
+  return data
+}
+
+export async function getOrCreateGuestPlayer(): Promise<Player> {
+  const supabase = getSupabaseClient()
+  const existingPlayer = await getGuestPlayer()
 
   if (existingPlayer) {
     return existingPlayer
@@ -41,6 +48,19 @@ export async function getOrCreateGuestPlayer(): Promise<Player> {
   }
 
   return fallbackPlayer
+}
+
+export function createEmptyUserStats(
+  gameMode = DEFAULT_GAME_MODE,
+): UserStats {
+  return {
+    playerId: '',
+    username: GUEST_USERNAME,
+    gameMode,
+    bestScore: 0,
+    bestStreak: 0,
+    gamesPlayed: 0,
+  }
 }
 
 export async function fetchUserStats(

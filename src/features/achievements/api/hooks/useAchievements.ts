@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getOrCreateGuestPlayer } from '../../../user/api/userStatsApi'
+import { getGuestPlayer } from '../../../user/api/userStatsApi'
 import { fetchAchievements } from '../achievementsApi'
 import type { PlayerAchievement } from '../../types'
 
@@ -9,8 +9,8 @@ export function useAchievements() {
   const [error, setError] = useState<string | null>(null)
 
   const loadAchievements = useCallback(async () => {
-    const player = await getOrCreateGuestPlayer()
-    return fetchAchievements(player.id)
+    const player = await getGuestPlayer()
+    return fetchAchievements(player?.id)
   }, [])
 
   const refetch = useCallback(async () => {
